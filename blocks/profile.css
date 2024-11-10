@@ -68,6 +68,7 @@
 
 .profile__edit-btn:hover {
   cursor: pointer;
+  opacity: 100%;
 }
 
 .profile__add-btn {
