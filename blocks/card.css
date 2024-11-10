@@ -45,9 +45,29 @@
   opacity: 1;
 }
 
-/* @media screen and (max-width: 627px) {
-
+@media screen and (max-width: 627px) {
   .card__image {
+    width: 288px;
     height: 288px;
   }
-} */
+}
+
+@media screen and (max-width: 320px) {
+  .card__image {
+    width: 288px;
+    height: 288px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .card__title {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .card__like-button {
+    width: 20px;
+    height: 18px;
+  }
+}
