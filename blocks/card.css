@@ -37,6 +37,7 @@
   border: none;
   border-color: transparent;
   opacity: 40%;
+  background-size: 100% 100%;
 }
 
 .card__like-button:hover {
@@ -49,6 +50,13 @@
   .card__image {
     width: 288px;
     height: 288px;
+  }
+}
+
+@media screen and (max-width: 627px) {
+  .card__like-button {
+    width: 20px;
+    height: 18px;
   }
 }
 

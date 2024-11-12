@@ -83,6 +83,7 @@
   align-items: center;
   color: white;
   background-color: black;
+  border: none;
 }
 
 .profile__add-btn:hover {
@@ -120,6 +121,10 @@
 
   .profile__column {
     margin: 0 0 20px;
+  }
+
+  .profile__edit-btn {
+    align-self: center;
   }
 
   .profile__add-btn {
