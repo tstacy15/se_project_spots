@@ -61,7 +61,7 @@ function getCardElement(data) {
   cardNameEL.textContent = data.name;
   // assigning values to the image src and alt atrributes
   cardImageEL.src = data.link;
-  cardNameEL.alt = data.name;
+  cardImageEL.alt = data.name;
 
   return cardElement;
 }
@@ -70,13 +70,13 @@ function openModal() {
   // When called the stuff on the rigth is the value we're assigning to the left of the equal sign
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  // When called add the modal__opened class to our modal to open it
-  editModal.classList.add("modal__opened");
+  // When called add the modal_opened class to our modal to open it
+  editModal.classList.add("modal_opened");
 }
 
-// Remove modal__opened from modal to close it
+// Remove modal_opened from modal to close it
 function closeModal() {
-  editModal.classList.remove("modal__opened");
+  editModal.classList.remove("modal_opened");
 }
 
 function handleEditFormSubmit(evt) {
