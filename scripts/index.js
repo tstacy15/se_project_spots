@@ -23,13 +23,20 @@ const initialCards = [
     name: "Mountain house",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
+  {
+    name: "Golden Gate bridge",
+    link: " https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+  },
 ];
 
-// Grabbing our elements
+// Grabbing our profile elements
 const profileEditButton = document.querySelector(".profile__edit-btn");
+// this is New post button
+const cardModalBtn = document.querySelector(".profile__add-btn");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
+// Grabbing our form elements
 const editModal = document.querySelector("#edit-modal");
 const editFormElement = editModal.querySelector(".modal__form");
 const editModalCloseBtn = editModal.querySelector(".modal__close-btn");
@@ -38,6 +45,19 @@ const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
 );
 
+const cardModal = document.querySelector("#add-card-modal");
+const cardForm = cardModal.querySelector(".modal__form");
+const cardModalCloseBtn = cardModal.querySelector(".modal__close-btn");
+const cardNameInput = cardModal.querySelector("#add-card-name-input");
+const cardLinkInput = cardModal.querySelector("#add-card-link-input");
+
+//Selecting the preview modal
+const previewModal = document.querySelector("#preview-modal");
+const previewModalImageEl = previewModal.querySelector(".modal__image");
+const previewModalCaptionEl = previewModal.querySelector(".modal__caption");
+const previewModalCloseBtn = previewModal.querySelector(".modal__close-btn");
+
+// Card related elements
 // this is selecting the cardTemplate that we made in html under the ul section
 const cardTemplate = document.querySelector("#card-template");
 //this and cardsList.prepend(cardElement) below is adding the cards list to the DOM
@@ -57,45 +77,87 @@ function getCardElement(data) {
   const cardNameEL = cardElement.querySelector(".card__title");
   // Selecting the image element
   const cardImageEL = cardElement.querySelector(".card__image");
+  const cardLikeBtn = cardElement.querySelector(".card__like-button");
+  const cardDeleteBtn = cardElement.querySelector(".card__delete-button");
 
   cardNameEL.textContent = data.name;
   // assigning values to the image src and alt atrributes
   cardImageEL.src = data.link;
   cardImageEL.alt = data.name;
 
+  cardLikeBtn.addEventListener("click", () => {
+    cardLikeBtn.classList.toggle("card__like-button_liked");
+  });
+
+  cardDeleteBtn.addEventListener("click", () => {
+    cardDeleteBtn.closest("li.card").remove(); // Removes the entire card (parent <li>)
+  });
+
+  cardImageEL.addEventListener("click", () => {
+    openModal(previewModal);
+    previewModalImageEl.src = data.link;
+    previewModalImageEl.alt = data.name;
+    previewModalCaptionEl.textContent = data.name;
+  });
+
   return cardElement;
 }
 
-function openModal() {
-  // When called the stuff on the rigth is the value we're assigning to the left of the equal sign
-  editModalNameInput.value = profileName.textContent;
-  editModalDescriptionInput.value = profileDescription.textContent;
+function openModal(modal) {
   // When called add the modal_opened class to our modal to open it
-  editModal.classList.add("modal_opened");
+  modal.classList.add("modal_opened");
 }
 
 // Remove modal_opened from modal to close it
-function closeModal() {
-  editModal.classList.remove("modal_opened");
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
 }
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editModalNameInput.value;
   profileDescription.textContent = editModalDescriptionInput.value;
-  closeModal();
+  closeModal(editModal);
+}
+
+function handleAddCardSubmit(evt) {
+  evt.preventDefault();
+
+  const cardLinkInput = document.querySelector("#add-card-link-input");
+  const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
+  const cardEl = getCardElement(inputValues);
+  cardsList.prepend(cardEl);
+  closeModal(cardModal);
+  //close the modal
 }
 
 // When the profile edit button is clicked, call our openModal function
-profileEditButton.addEventListener("click", openModal);
-editModalCloseBtn.addEventListener("click", closeModal);
+profileEditButton.addEventListener("click", () => {
+  // When called the stuff on the rigth is the value we're assigning to the left of the equal sign
+  editModalNameInput.value = profileName.textContent;
+  editModalDescriptionInput.value = profileDescription.textContent;
+  openModal(editModal);
+});
+editModalCloseBtn.addEventListener("click", () => {
+  closeModal(editModal);
+});
 editFormElement.addEventListener("submit", handleEditFormSubmit);
+cardForm.addEventListener("submit", handleAddCardSubmit);
 
-//We are iterating over the cards array using a loop, and in each iteration we Pass the array item to our getCardElement() function to create the card element, then we Use the appropriate built-in DOM method to add this HTML element to the page.
-//This says keep iterating as long as this statement is true, as long as is less than the length of the cards array keep going.
-//Array item is initialCards[i]
-for (let i = 0; i < initialCards.length; i++) {
-  const cardElement = getCardElement(initialCards[i]);
-  //this along with const cardsList = document.querySelector(".cards__list") above adds cards/list/elements to the DOM
+// When the profile edit button is clicked, call our openModal function
+cardModalBtn.addEventListener("click", () => {
+  openModal(cardModal);
+});
+cardModalCloseBtn.addEventListener("click", () => {
+  closeModal(cardModal);
+});
+
+previewModalCloseBtn.addEventListener("click", () => {
+  closeModal(previewModal);
+});
+
+initialCards.forEach((item) => {
+  console.log(item);
+  const cardElement = getCardElement(item);
   cardsList.append(cardElement);
-}
+});
