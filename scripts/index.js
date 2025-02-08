@@ -90,7 +90,7 @@ function getCardElement(data) {
   });
 
   cardDeleteBtn.addEventListener("click", () => {
-    cardDeleteBtn.closest("li.card").remove(); // Removes the entire card (parent <li>)
+    cardElement.remove(); // Removes the entire card (parent <li>)
   });
 
   cardImageEL.addEventListener("click", () => {
@@ -123,10 +123,10 @@ function handleEditFormSubmit(evt) {
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
 
-  const cardLinkInput = document.querySelector("#add-card-link-input");
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   const cardEl = getCardElement(inputValues);
   cardsList.prepend(cardEl);
+  evt.target.reset();
   closeModal(cardModal);
   //close the modal
 }
