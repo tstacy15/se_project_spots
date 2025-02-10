@@ -28,7 +28,7 @@
   width: 100%;
   box-sizing: border-box;
   border-radius: 8px;
-  height: 415px;
+  height: 356px;
 }
 
 .modal__container_type_preview {
@@ -186,5 +186,11 @@
 
   .modal__close-btn {
     right: 6px;
+    top: 25px;
+  }
+
+  .modal__close-btn_type_preview {
+    top: -25px;
+    right: 9px;
   }
 }
