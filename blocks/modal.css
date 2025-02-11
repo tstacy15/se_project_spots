@@ -142,7 +142,6 @@
   .modal__container {
     padding: 12px;
     width: 95%;
-    max-width: 80vw;
   }
 
   .modal__title {
