@@ -47,6 +47,7 @@ const editModalDescriptionInput = editModal.querySelector(
 
 const cardModal = document.querySelector("#add-card-modal");
 const cardForm = cardModal.querySelector(".modal__form");
+const cardSubmitToDisableBtn = cardModal.querySelector(".modal__submit-btn");
 const cardModalCloseBtn = cardModal.querySelector(".modal__close-btn");
 const cardNameInput = cardModal.querySelector("#add-card-name-input");
 const cardLinkInput = cardModal.querySelector("#add-card-link-input");
@@ -126,7 +127,9 @@ function handleAddCardSubmit(evt) {
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   const cardEl = getCardElement(inputValues);
   cardsList.prepend(cardEl);
+  // Resetting the form
   evt.target.reset();
+  disableButton(cardSubmitToDisableBtn, settings);
   closeModal(cardModal);
   //close the modal
 }
