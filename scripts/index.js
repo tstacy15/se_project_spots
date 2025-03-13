@@ -58,6 +58,16 @@ const previewModalImageEl = previewModal.querySelector(".modal__image");
 const previewModalCaptionEl = previewModal.querySelector(".modal__caption");
 const previewModalCloseBtn = previewModal.querySelector(".modal__close-btn");
 
+const modals = document.querySelectorAll(".modal");
+
+modals.forEach((modal) => {
+  modal.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("modal")) {
+      closeModal(modal);
+    }
+  });
+});
+
 // Card related elements
 // this is selecting the cardTemplate that we made in html under the ul section
 const cardTemplate = document.querySelector("#card-template");
@@ -104,14 +114,23 @@ function getCardElement(data) {
   return cardElement;
 }
 
+function handleEscape(evt) {
+  if (evt.key === "Escape") {
+    const activeModal = document.querySelector(".modal_opened");
+    closeModal(activeModal);
+  }
+}
+
 function openModal(modal) {
   // When called add the modal_opened class to our modal to open it
   modal.classList.add("modal_opened");
+  document.addEventListener("keyup", handleEscape);
 }
 
 // Remove modal_opened from modal to close it
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.addEventListener("keyup", handleEscape);
 }
 
 function handleEditFormSubmit(evt) {
