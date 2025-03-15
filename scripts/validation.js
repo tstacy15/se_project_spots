@@ -2,14 +2,14 @@ const settings = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-btn",
-  inactiveButtonClass: "modal__submit-btn__grey",
+  inactiveButtonClass: "modal__submit-btn_grey",
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__error_visible", //may just need to take visible off
 };
 
 const showInputError = (formEl, inputEl, errorMsg, config) => {
-  const errorMsgID = inputEl.id + "-error";
-  const errorMsgEl = formEl.querySelector("#" + errorMsgID);
+  const errorMsgID = `#${inputEl.id}-error`;
+  const errorMsgEl = formEl.querySelector(errorMsgID);
   errorMsgEl.textContent = errorMsg;
   //created and added a new class for error msg outline
   inputEl.classList.add(config.inputErrorClass);
@@ -17,11 +17,12 @@ const showInputError = (formEl, inputEl, errorMsg, config) => {
 };
 
 const hideInputError = (formEl, inputEl, config) => {
-  const errorMsgID = inputEl.id + "-error";
-  const errorMsgEl = formEl.querySelector("#" + errorMsgID);
-  errorMsgEl.textContent = "";
+  const errorMsgID = `#${inputEl.id}-error`;
+  const errorMsgEl = formEl.querySelector(errorMsgID);
   //removing created class for error msg outline
   inputEl.classList.remove(config.inputErrorClass);
+  errorMsgEl.classList.remove(config.errorClass);
+  errorMsgEl.textContent = "";
 };
 
 const checkInputValidity = (formEl, inputEl, config) => {
@@ -51,6 +52,12 @@ const toggleButtonState = (inputList, buttonEl, config) => {
 const disableButton = (buttonEl, config) => {
   buttonEl.disabled = true;
   buttonEl.classList.add(config.inactiveButtonClass);
+};
+
+const resetValidation = (formEl, inputList, config) => {
+  inputList.forEach((input) => {
+    hideInputError(formEl, input, config);
+  });
 };
 
 const setEventListeners = (formEl, config) => {

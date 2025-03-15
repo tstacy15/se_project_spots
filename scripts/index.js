@@ -130,7 +130,7 @@ function openModal(modal) {
 // Remove modal_opened from modal to close it
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
-  document.addEventListener("keyup", handleEscape);
+  document.removeEventListener("keyup", handleEscape);
 }
 
 function handleEditFormSubmit(evt) {
@@ -153,10 +153,22 @@ function handleAddCardSubmit(evt) {
   //close the modal
 }
 
+// function handleInputReset(evt) {
+//   const editModal = document.querySelector("edit-modal");
+
+//   if (editModal) {
+//   }
+// }
+
 // When the profile edit button is clicked, call our openModal function
 profileEditButton.addEventListener("click", () => {
   // When called the stuff on the rigth is the value we're assigning to the left of the equal sign
   editModalNameInput.value = profileName.textContent;
+  resetValidation(
+    editFormElement,
+    [editModalNameInput, editModalDescriptionInput],
+    settings
+  );
   editModalDescriptionInput.value = profileDescription.textContent;
   openModal(editModal);
 });
@@ -168,6 +180,8 @@ cardForm.addEventListener("submit", handleAddCardSubmit);
 
 // When the profile edit button is clicked, call our openModal function
 cardModalBtn.addEventListener("click", () => {
+  // Call reset Validation and pass the correct params
+
   openModal(cardModal);
 });
 cardModalCloseBtn.addEventListener("click", () => {
