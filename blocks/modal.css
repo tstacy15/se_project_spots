@@ -145,7 +145,7 @@
   cursor: pointer;
 }
 
-.modal__submit-btn__grey {
+.modal__submit-btn_grey {
   background-color: rgba(33, 33, 33, 1);
   opacity: 50%;
 }
